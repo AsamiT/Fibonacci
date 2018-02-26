@@ -21,12 +21,18 @@ HugeInteger *parseString(char *str) {
     if (!str) {
         return NULL; //if str is not defined, then return NULL
     }
+
     struct HugeInteger *a;
     a->length=strlen(str)+1;
     a->digits = malloc(sizeof(int) * a->length);
+    /* create a new item from structure HugeInteger,
+    assign to a->length the string length of str + /0,
+    and then malloc a->digits at the size of an integer * the length. */
+
     for (int i = 0; i < a->length; i++) {
         a->digits[i] = str[i];
     }
+
     return a;
 }
 
