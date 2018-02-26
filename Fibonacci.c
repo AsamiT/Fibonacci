@@ -22,9 +22,12 @@ HugeInteger *parseString(char *str) {
         return NULL; //if str is not defined, then return NULL
     }
     struct HugeInteger *a;
-    a->length=strlen(str);
-    printf("%d\n", a->length);
-    return 0;
+    a->length=strlen(str)+1;
+    a->digits = malloc(sizeof(int) * a->length);
+    for (int i = 0; i < a->length; i++) {
+        a->digits[i] = str[i];
+    }
+    return a;
 }
 
 HugeInteger *hugeDestroyer(HugeInteger *p) {
