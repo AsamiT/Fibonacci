@@ -12,6 +12,7 @@
  Boy you've never seen my mind." */
 
 #include <limits.h> // maximum unsigned value is 4,294,967,295 as defined by macOS 10.13
+#include <malloc.h> // used for debugging. Don't remove!
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,17 +23,31 @@ HugeInteger *parseString(char *str) {
         return NULL; //if str is not defined, then return NULL
     }
 
-    struct HugeInteger *a = malloc(sizeof(struct HugeInteger) * strlen(str));
+    struct HugeInteger *a = malloc(sizeof(struct HugeInteger));
     a->length=strlen(str)+1;
     a->digits = malloc(sizeof(int) * a->length);
     /* create a new item from structure HugeInteger,
     assign to a->length the string length of str + /0,
     and then malloc a->digits at the size of an integer * the length. */
+//
+//    for (int i = 0; i < a->length-1; i++) {
+//        c = str[i];
+//        fubar = atoi(c);
+//        a->digits[i] = fubar;
+//        printf("%d\n", a->digits[i]);
+//    }
 
-    for (int i = 0; i < a->length; i++) {
-        a->digits[i] = str[i];
-        printf("%d\n", a->digits[i]);
-    }
+    char *x = "12345";
+    char *y = &x[2];
+    int z = strtol(y, &y, 10);
+    printf("%d\n", z);
+
+
+//
+//    for (int i = 0; i < a->length; i++) {
+//        a->digits[i] = str[i];
+//        printf("%d\n", a->digits[i]);
+//    }
 
     return a;
 }

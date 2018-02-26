@@ -19,9 +19,10 @@ void hugePrint(HugeInteger *p)
         return;
     }
 
-	for (i = p->length - 1; i >= 0; i--)
-		printf("%d", p->digits[i]);
-	printf("\n");
+	for (i = p->length - 1; i >= 0; i--) {
+        //printf("%d", p->digits[i]);
+        //printf("\n");
+    }
 }
 
 int main(void)

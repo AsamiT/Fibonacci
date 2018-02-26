@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1519685396 source:a:\desktop\fibonacci\fibonacci.c
+1519687607 source:a:\desktop\fibonacci\fibonacci.c
 	<limits.h>
+	<malloc.h>
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
@@ -8,7 +9,7 @@
 
 1474946402 a:\desktop\fibonacci\fibonacci.h
 
-1519681429 source:a:\desktop\fibonacci\testcase01.c
+1519686965 source:a:\desktop\fibonacci\testcase01.c
 	<stdio.h>
 	<stdlib.h>
 	<limits.h>

@@ -31,6 +31,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../../Fibonacci.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Fibonacci.h" />
+		<Unit filename="../../testcase01.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
