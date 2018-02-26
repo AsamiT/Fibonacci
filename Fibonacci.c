@@ -18,9 +18,12 @@
 #include "Fibonacci.h"
 
 HugeInteger *parseString(char *str) {
-    //if (!str) {
+    if (!str) {
         return NULL; //if str is not defined, then return NULL
-    //}
+    }
+    else {
+        return 0;
+    }
 }
 
 HugeInteger *hugeDestroyer(HugeInteger *p) {
