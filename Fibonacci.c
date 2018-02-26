@@ -61,7 +61,6 @@ HugeInteger *fib(int n) {
 
 double difficultyRating(void) {
     double diff = 5.0;
-    /* Sometimes, I want to dig up the body of Horace Mann and beat him with a billy club. */
 }
 
 
