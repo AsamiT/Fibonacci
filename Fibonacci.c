@@ -22,7 +22,7 @@ HugeInteger *parseString(char *str) {
         return NULL; //if str is not defined, then return NULL
     }
 
-    struct HugeInteger *a;
+    struct HugeInteger *a = malloc(sizeof(struct HugeInteger) * strlen(str));
     a->length=strlen(str)+1;
     a->digits = malloc(sizeof(int) * a->length);
     /* create a new item from structure HugeInteger,
@@ -31,6 +31,7 @@ HugeInteger *parseString(char *str) {
 
     for (int i = 0; i < a->length; i++) {
         a->digits[i] = str[i];
+        printf("%d\n", a->digits[i]);
     }
 
     return a;
