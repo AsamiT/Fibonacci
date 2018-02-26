@@ -21,9 +21,10 @@ HugeInteger *parseString(char *str) {
     if (!str) {
         return NULL; //if str is not defined, then return NULL
     }
-    else {
-        return 0;
-    }
+    struct HugeInteger *a;
+    a->length=strlen(str);
+    printf("%d\n", a->length);
+    return 0;
 }
 
 HugeInteger *hugeDestroyer(HugeInteger *p) {
