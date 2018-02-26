@@ -18,27 +18,21 @@
 #include "Fibonacci.h"
 
 HugeInteger *parseString(char *str) {
-    if (!str) {
+    //if (!str) {
         return NULL; //if str is not defined, then return NULL
-    }
-    struct HugeInteger *a;
+    //}
 }
 
 HugeInteger *hugeDestroyer(HugeInteger *p) {
+    //null
 }
 
-HugeInteger *parseInt(unsigned int n) {
-    struct HugeInteger *b;
-    printf("%p\n", &b->length);
+HugeInteger *parseInt(unsigned int n) {;
+    //null
 }
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
-  /*  if (q->length < p->length) {
-        HugeInteger *d;
-        for (int a = 0; a < q->length; a++) {
-
-        }
-    } */
+    //null
 }
 
 
