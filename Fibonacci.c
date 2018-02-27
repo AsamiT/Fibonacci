@@ -12,7 +12,6 @@
  Boy you've never seen my mind." */
 
 #include <limits.h> // maximum unsigned value is 4,294,967,295 as defined by macOS 10.13
-#include <malloc.h> // used for debugging. Don't remove!
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,7 +58,7 @@ HugeInteger *parseInt(unsigned int n) {;
         int_len++;
     }
     a->length=int_len; //assign length
-    a->digits= malloc(sizeof(int) * a->length); //dynamically create our digits array
+    a->digits=malloc(sizeof(int) * a->length); //dynamically create our digits array
     unsigned long int digit; //declare integer
 
     for (int i = 0; i <= a->length; i++) {
