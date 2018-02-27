@@ -16,8 +16,8 @@ void hugePrint(HugeInteger *p)
 
 	for (i = p->length - 1; i >= 0; i--) {
         printf("%d", p->digits[i]);
-        printf("\n");
     }
+    printf("\n");
 }
 
 int main(void)
@@ -31,6 +31,9 @@ int main(void)
       hugeDestroyer(p);
 
       hugePrint(p = parseString(NULL));
+      hugeDestroyer(p);
+
+      hugePrint(p = parseString(""));
       hugeDestroyer(p);
 
       hugePrint(p = parseInt(246810));
