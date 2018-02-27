@@ -52,15 +52,15 @@ HugeInteger *parseInt(unsigned int n) {;
         return NULL; //invalid! not a number!
     }
     struct HugeInteger *a = malloc(sizeof(struct HugeInteger)); //create new structure
-    int tempint = n; //assign the value of n to a temporary integer
-    int int_len = 0; //create new marker for our length
+    unsigned long int tempint = n; //assign the value of n to a temporary long int
+    unsigned long int int_len = 0; //create new marker for our length
     while (tempint > 0) { //execute a while loop that counts up the length of our integer number
         tempint /= 10;
         int_len++;
     }
     a->length=int_len; //assign length
     a->digits= malloc(sizeof(int) * a->length); //dynamically create our digits array
-    int digit; //declare integer
+    unsigned long int digit; //declare integer
 
     for (int i = 0; i <= a->length; i++) {
         digit = n % 10;
@@ -77,6 +77,7 @@ HugeInteger *parseInt(unsigned int n) {;
 
         */
     }
+    return a;
 }
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
