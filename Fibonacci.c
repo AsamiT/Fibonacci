@@ -59,23 +59,13 @@ HugeInteger *parseInt(unsigned int n) {;
         int_len++;
     }
     a->length=int_len; //assign length
-    a->digits= malloc(sizeof(int) * a->length); //dynamically create our digits array
+    a->digits= malloc(sizeof(int) * a->length+1); //dynamically create our digits array
     unsigned long int digit; //declare integer
 
     for (int i = 0; i <= a->length; i++) {
         digit = n % 10;
         a->digits[i] = digit;
         n /= 10;
-       /*
-
-        debug statements
-
-        printf("i: %d\n", i);
-        printf("n: %d\n", n);
-        printf("digit: %d\n", digit);
-        printf("array: %d\n", a->digits[i]);
-
-        */
     }
     return a;
 }
