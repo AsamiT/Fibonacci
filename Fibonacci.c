@@ -24,40 +24,59 @@ HugeInteger *parseString(char *str) {
     }
 
     struct HugeInteger *a = malloc(sizeof(struct HugeInteger));
-    a->length=strlen(str)+1;
+    a->length=strlen(str);
     a->digits = malloc(sizeof(int) * a->length);
     /* create a new item from structure HugeInteger,
     assign to a->length the string length of str + /0,
     and then malloc a->digits at the size of an integer * the length. */
-//
-//    for (int i = 0; i < a->length-1; i++) {
-//        c = str[i];
-//        fubar = atoi(c);
-//        a->digits[i] = fubar;
-//        printf("%d\n", a->digits[i]);
-//    }
 
-    char *x = "12345";
-    char *y = &x[2];
-    int z = strtol(y, &y, 10);
-    printf("%d\n", z);
-
-
-//
-//    for (int i = 0; i < a->length; i++) {
-//        a->digits[i] = str[i];
-//        printf("%d\n", a->digits[i]);
-//    }
-
+    for (int i = 0; i < strlen(str); i++) {
+        char *mysub = malloc(sizeof(char)*2); //temporary buffer which holds one character from str.
+        strncpy(mysub, &str[i], 1); //copy the data over to str[i]
+        mysub[1] = '\0'; //accounting for null terminator
+        int x = (int) strtol(mysub, NULL, 10); //convert to integer
+        a->digits[i] = x; //push to a->digits
+    }
     return a;
 }
 
 HugeInteger *hugeDestroyer(HugeInteger *p) {
-    //null
+    /*  as far as I'm aware, this is literally all that is necessary to free memory.
+        Implementation of a debug function which calls _msize(p) shows that the memory
+        allocation for this goes from 8 to -1, thus becoming a null value. */
+    free(p);
 }
 
 HugeInteger *parseInt(unsigned int n) {;
-    //null
+    if (!n) {
+        return NULL; //invalid! not a number!
+    }
+    struct HugeInteger *a = malloc(sizeof(struct HugeInteger)); //create new structure
+    int tempint = n; //assign the value of n to a temporary integer
+    int int_len = 0; //create new marker for our length
+    while (tempint > 0) { //execute a while loop that counts up the length of our integer number
+        tempint /= 10;
+        int_len++;
+    }
+    a->length=int_len; //assign length
+    a->digits= malloc(sizeof(int) * a->length); //dynamically create our digits array
+    int digit; //declare integer
+
+    for (int i = 0; i <= a->length; i++) {
+        digit = n % 10;
+        a->digits[i] = digit;
+        n /= 10;
+       /*
+
+        debug statements
+
+        printf("i: %d\n", i);
+        printf("n: %d\n", n);
+        printf("digit: %d\n", digit);
+        printf("array: %d\n", a->digits[i]);
+
+        */
+    }
 }
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
