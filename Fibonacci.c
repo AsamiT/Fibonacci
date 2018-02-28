@@ -107,11 +107,13 @@ HugeInteger *fib(int n) {
 
 double difficultyRating(void) {
     double diff = 5.0;
+    return diff;
 }
 
 
 double hoursSpent(void) {
     int hrs = 40;
+    return hrs;
 
 }
 
