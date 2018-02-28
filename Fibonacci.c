@@ -104,8 +104,14 @@ HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
     unsigned long long int hold = 0;
     int carry = 0;
     *array = malloc(sizeof(unsigned long long int));
-
-    return array;
+    if ((p->length) > (q->length)) {
+        printf("p > q\n");
+        return NULL;
+    }
+    else {
+        printf("q >= p\n");
+        return NULL;
+    }
 }
 
 
