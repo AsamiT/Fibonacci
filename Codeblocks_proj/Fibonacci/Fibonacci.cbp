@@ -35,7 +35,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../Fibonacci.h" />
-		<Unit filename="../../testcase01.c">
+		<Unit filename="../../testcase02.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

@@ -19,8 +19,7 @@
 #include <stdlib.h>
 #include "Fibonacci.h"
 
-/** This function will return an integer version of the pow() standard function in C. **/
-
+/** This function, intpow, will return an integer version of the pow() standard function in C. **/
 int intpow(int base, int power) {
     int result = 1;
     for(int count = 0; count < power; count++) result *= base;
