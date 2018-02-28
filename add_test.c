@@ -15,7 +15,8 @@ void hugePrint(HugeInteger *p)
 	}
 
 	for (i = p->length - 1; i >= 0; i--)
-		printf("%d", p->digits[i]);
+		printf("    %d", p->digits[i]);
+    printf("\n");
 }
 
 int main(void)
@@ -24,15 +25,15 @@ int main(void)
 	HugeInteger *p, *q, *r;
 
 	// calculate INT_MAX + 1
-	p = parseInt(10);
-	q = parseInt(90);
+	p = parseInt(1);
+	q = parseInt(990);
 	r = hugeAdd(p, q);
 
 	// print result of INT_MAX + 1 with HugeIntegers
 	hugePrint(p);
-	printf(" + ");
+	printf(" + \n");
 	hugePrint(q);
-	printf(" = ");
+	printf(" = \n");
 	hugePrint(r);
 	printf("\n\n");
 

@@ -100,18 +100,12 @@ HugeInteger *parseInt(unsigned int n) {;
 }
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
-    unsigned long long int *array;
-    unsigned long long int hold = 0;
+    int *array;
     int carry = 0;
-    *array = malloc(sizeof(unsigned long long int));
-    if ((p->length) > (q->length)) {
-        printf("p > q\n");
-        return NULL;
-    }
-    else {
-        printf("q >= p\n");
-        return NULL;
-    }
+    int comlen = ((q->length) + (p->length) + 1);
+    *array = malloc(sizeof(int)*comlen);
+
+    return array;
 }
 
 
