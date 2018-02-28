@@ -105,10 +105,16 @@ HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
 
 
 unsigned int *toUnsignedInt(HugeInteger *p) {
-    unsigned int x = 0;
-    for(int i = 0; i < p->length; i++) {
-     x += p->digits[(p->length-1) -i] * intpow(10, i);
+    unsigned int *x;
+    x = malloc(sizeof(unsigned int));
+    unsigned int hold;
+    for(int i = p->length; i > 0; i--) {
+     hold += p->digits[i] * intpow(10, i);
     }
+    printf("\n");
+    hold+=1; //unsigned integers suck, we're adding one to keep it from taking one away.
+    *x=hold;
+    return x;
 }
 
 
