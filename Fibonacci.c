@@ -60,7 +60,7 @@ HugeInteger *hugeDestroyer(HugeInteger *p) {
 int chkint(unsigned int n) {
 
     if (n == 0) {
-        //do nothing
+        return n;
     }
 
     else {
@@ -100,26 +100,38 @@ HugeInteger *parseInt(unsigned int n) {;
 }
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
-    return NULL;
+    unsigned long long int *array;
+    unsigned long long int hold = 0;
+    int carry = 0;
+    *array = malloc(sizeof(unsigned long long int));
+    return array;
 }
 
 
 unsigned int *toUnsignedInt(HugeInteger *p) {
     unsigned int *x;
     x = malloc(sizeof(unsigned int));
-    unsigned int hold;
-    for(int i = p->length; i > 0; i--) {
-     hold += p->digits[i] * intpow(10, i);
+    unsigned int hold = 0;
+
+    if (p == NULL) { //if p is a null pointer, then don't do anything
+        return NULL;
     }
-    printf("\n");
-    hold+=1; //unsigned integers suck, we're adding one to keep it from taking one away.
-    *x=hold;
-    return x;
+    if (p->length > 10) {
+        return NULL;
+    } //if p->length exceeds length of UINT_MAX, then don't do it.
+
+    else {
+        for(int i = (p->length-1); i >= 0; i--) {
+         hold += p->digits[i] * intpow(10, i);
+        }
+        *x=hold;
+        return x;
+    }
 }
 
 
 HugeInteger *fib(int n) {
-    //null
+    return NULL;
 }
 
 

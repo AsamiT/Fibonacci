@@ -36,7 +36,21 @@ int main(void) {
     unsigned int *temp;
     HugeInteger *p;
 
+	hugePrint(p = parseString("12345"));
+	printf("%u\n", *(temp = toUnsignedInt(p)));
+	free(temp);
+	hugeDestroyer(p);
+
 	hugePrint(p = parseString("354913546879519843519843548943513179"));
+	temp = toUnsignedInt(p);
+	if (temp == NULL)
+		printf("Good work.\n");
+	else
+		printf("Uh oh...\n");
+	free(temp);
+	hugeDestroyer(p);
+
+	hugePrint(p = parseString(NULL));
 	temp = toUnsignedInt(p);
 	if (temp == NULL)
 		printf("Good work.\n");
