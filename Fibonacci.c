@@ -22,8 +22,10 @@ HugeInteger *parseString(char *str) {
     if (!str) {
         return NULL;
     }
-
     struct HugeInteger *a = malloc(sizeof(struct HugeInteger));
+    if (str[0] == '\0') {
+        str = "0";
+    }
     a->length=strlen(str);
     a->digits = malloc(sizeof(int) * a->length);
     /* create a new item from structure HugeInteger,

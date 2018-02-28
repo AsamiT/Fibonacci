@@ -33,9 +33,6 @@ int main(void)
       hugePrint(p = parseString(NULL));
       hugeDestroyer(p);
 
-      hugePrint(p = parseString(""));
-      hugeDestroyer(p);
-
       hugePrint(p = parseInt(246810));
       hugeDestroyer(p);
 
