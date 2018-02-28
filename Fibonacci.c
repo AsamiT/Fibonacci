@@ -31,13 +31,13 @@ HugeInteger *parseString(char *str) {
     /* create a new item from structure HugeInteger,
     assign to a->length the string length of str + /0,
     and then malloc a->digits at the size of an integer * the length. */
-    for (int i = 0; i < strlen(str); i++) {
         char *mysub = malloc(sizeof(char)*2); //temporary buffer which holds one character from str.
-        strncpy(mysub, &str[i], 1); //copy the data over to str[i]
-        mysub[1] = '\0'; //accounting for null terminator
-        int x = (int) strtol(mysub, NULL, 10); //convert to integer
-        a->digits[i] = x; //push to a->digits
-    }
+        mysub[1] = '\0';
+        for (int i = 0; i < strlen(str); i++) {
+            strncpy(mysub, &str[(strlen(str)-1)-i], 1); //copy the data over to str[i]
+            int x = (int) strtol(mysub, NULL, 10); //convert to integer
+            a->digits[i] = x; //push to a->digits
+        }
     return a;
 }
 
@@ -46,6 +46,7 @@ HugeInteger *hugeDestroyer(HugeInteger *p) {
         Implementation of a debug function which calls _msize(p) shows that the memory
         allocation for this goes from 8 to -1, thus becoming a null value. */
     free(p);
+    return NULL;
 }
 
 int chkint(unsigned int n) {
