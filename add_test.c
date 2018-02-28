@@ -24,15 +24,22 @@ int main(void)
 	HugeInteger *p, *q, *r;
 
 	// calculate INT_MAX + 1
-	p = parseInt(INT_MAX);
-	q = parseInt(1);
+	p = parseInt(10);
+	q = parseInt(90);
 	r = hugeAdd(p, q);
+
+	// print result of INT_MAX + 1 with HugeIntegers
+	hugePrint(p);
+	printf(" + ");
+	hugePrint(q);
+	printf(" = ");
+	hugePrint(r);
+	printf("\n\n");
 
 	// free memory
 	hugeDestroyer(p);
 	hugeDestroyer(q);
 	hugeDestroyer(r);
-
 
 	return 0;
 }

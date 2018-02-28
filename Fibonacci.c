@@ -104,6 +104,7 @@ HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
     unsigned long long int hold = 0;
     int carry = 0;
     *array = malloc(sizeof(unsigned long long int));
+
     return array;
 }
 

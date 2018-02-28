@@ -35,13 +35,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../Fibonacci.h" />
-		<Unit filename="../../int_testing.c">
+		<Unit filename="../../testcase03.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug" />
-		</Unit>
-		<Unit filename="../../testcase02.c">
-			<Option compilerVar="CC" />
-			<Option target="Release" />
 		</Unit>
 		<Extensions>
 			<code_completion />
