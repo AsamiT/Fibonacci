@@ -13,10 +13,19 @@
 
 #include <limits.h> // maximum unsigned value is 4,294,967,295 as defined by macOS 10.13
 #include <malloc.h> // used for debugging. Don't remove!
+#include <math.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "Fibonacci.h"
+
+/** This function will return an integer version of the pow() standard function in C. **/
+
+int intpow(int base, int power) {
+    int result = 1;
+    for(int count = 0; count < power; count++) result *= base;
+    return result;
+}
 
 HugeInteger *parseString(char *str) {
     if (!str) {
@@ -92,12 +101,15 @@ HugeInteger *parseInt(unsigned int n) {;
 }
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
-    //null
+    return NULL;
 }
 
 
 unsigned int *toUnsignedInt(HugeInteger *p) {
-    //null
+    unsigned int x = 0;
+    for(int i = 0; i < p->length; i++) {
+     x += p->digits[(p->length-1) -i] * intpow(10, i);
+    }
 }
 
 
