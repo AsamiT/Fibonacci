@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "Fibonacci.h"
+#include "../Fibonacci.h"
 
 // print a HugeInteger (without a newline character)
 void hugePrint(HugeInteger *p)
