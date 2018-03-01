@@ -101,10 +101,10 @@ HugeInteger *parseInt(unsigned int n) {;
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
     int *array;
+    array = malloc(sizeof(int)+1);
     unsigned long long int a_add = 0;
     unsigned long long int b_add = 0;
     unsigned long long int int_res = 0;
-    array = malloc(sizeof(int));
     for (int x=0; x<=p->length; x++) {
         a_add += (p->digits[x] * intpow(10,x));
     }
