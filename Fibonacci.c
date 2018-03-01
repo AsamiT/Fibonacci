@@ -162,21 +162,21 @@ HugeInteger *fib(int n) {
         return f;
     }
     else {
-        z = fib(0);
-        x = fib(1);
+        z = fib(n-2);
+        x = fib(n-1);
         f = hugeAdd(x, z);
     }
 }
 
 
 double difficultyRating(void) {
-    double diff = 5.0; //pretty god damn difficult
+    double diff = 5.0; //extremely difficult, to the point of medically inducing panic and anxiety attacks.
     return diff;
 }
 
 
 double hoursSpent(void) {
-    int hrs = 120; //way too many hours dude
+    int hrs = 120; //way too many hours dude, i have other things to do than this
     return hrs;
 
 }
