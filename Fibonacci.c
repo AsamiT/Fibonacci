@@ -11,6 +11,8 @@
  I say 'Maybe, if you want to go blind', but my eyes are getting too dark now,
  Boy you've never seen my mind." */
 
+#define MAX_Huge_INTEGER 200
+
 #include <limits.h> // maximum unsigned value is 4,294,967,295 as defined by macOS 10.13
 #include <math.h>
 #include <string.h>
@@ -98,37 +100,29 @@ HugeInteger *parseInt(unsigned int n) {;
     return a;
 }
 
-HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
-    /** This function creates a new array based off of HugeInteger,
-     along with some variables to do number management. After creating unsigned
-     long long integers with the number stored in each array (p and q), it creates
-     a sum number (int_res), which is then pushed to the new array. **/
-    struct HugeInteger *array = malloc(sizeof(struct HugeInteger));
-    unsigned long long int a_add = 0;
-    unsigned long long int b_add = 0;
-    unsigned long long int int_res = 0;
-    for (int x=0; x<=p->length; x++) {
-        a_add += (p->digits[x] * intpow(10,x)); //see intpow() above for function purpose
+HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
+    /** I'd rather be locked in a closet with a Commodore 64
+        and have to program in 6502 Assembler for eight hours than do this. **/
+    HugeInteger *result = (HugeInteger *) malloc(sizeof(HugeInteger));
+    result->digits = (int *) malloc(sizeof(int) * MAX_Huge_INTEGER); //warn: magic number -- check the preprocessor definitions!
+    for(int i = 0; i < MAX_Huge_INTEGER; i++) result->digits[i] = 0; //initialize
+    for(int i = 0, carry = 0; i < MAX_Huge_INTEGER; i++) {
+        int nextA = (i < a->length)? a->digits[i] : 0;
+        int nextB = (i < b->length)? b->digits[i] : 0;
+        result->digits[i] = nextA+ nextB + carry; // carry on my wayward one
+        if(result->digits[i]>9) {
+            result->digits[i] = (nextA+nextB) % 10;
+            carry = (nextA + nextB) - result->digits[i];
+            if(carry < 0) carry = 0;
+        }
     }
-    for (int z=0; z<=q->length; z++) {
-        b_add += (q->digits[z] * intpow(10,z)); //see intpow() for more info
+    for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
+        if(result->digits[i] != 0) {
+            result->length = i+1;
+            break;
+        }
     }
-    int_res = a_add + b_add; //sum storage
-    unsigned long long int temp_int = int_res; //temporary integer storage
-    int count = 0;
-    while (temp_int != 0) {
-        temp_int /=10;
-        count++;
-    }
-    array->length = count; //push length of array to count to keep track
-    array->digits= malloc(sizeof(int) * array->length+1); //dynamically create our digits array
-    for (int i = 0; i < array->length; i++) {
-        temp_int = int_res % 10;
-        array->digits[i] = temp_int;
-        int_res /= 10;
-    }
-    return array; //give the array back, i don't want it
-    /** This function does not work with variables which exceed 64-bits. Sorry. **/
+    return result; //take the array back I don't want it
 }
 
 
@@ -154,18 +148,24 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
 }
 
 
+
 HugeInteger *fib(int n) {
     struct HugeInteger *f = malloc(sizeof(struct HugeInteger));
+    struct HugeInteger *x = malloc(sizeof(struct HugeInteger));
+    struct HugeInteger *z = malloc(sizeof(struct HugeInteger));
     f->digits = malloc(sizeof(int));
-    if (n < 2) {
+    x->digits = malloc(sizeof(int));
+    z->digits = malloc(sizeof(int));
+    if (n <= 1) {
         f->digits[0] = n;
         f->length = 1;
+        free(x);
+        free(z);
+        return f;
     }
     else {
-        //i'm going to slit my own wrists now
+        f = hugeAdd(x, z);
     }
-    
-    return f;
 }
 
 
