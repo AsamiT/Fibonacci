@@ -26,7 +26,7 @@ int main(void)
 
 	// calculate INT_MAX + 1
 	p = parseInt(1);
-	q = parseInt(990);
+	q = parseInt(999);
 	r = hugeAdd(p, q);
 
 	// print result of INT_MAX + 1 with HugeIntegers

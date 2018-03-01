@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1519844221 source:a:\desktop\fibonacci\fibonacci.c
+1519867752 source:a:\desktop\fibonacci\fibonacci.c
 	<limits.h>
 	<malloc.h>
 	<math.h>
@@ -39,4 +39,10 @@
 	<stdlib.h>
 	<limits.h>
 	"Fibonacci.h"
+
+1519859177 source:a:\desktop\fibonacci\personal_tests\add_test.c
+	<stdio.h>
+	<stdlib.h>
+	<limits.h>
+	"../Fibonacci.h"
 
