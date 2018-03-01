@@ -159,11 +159,11 @@ HugeInteger *fib(int n) {
     if (n <= 1) {
         f->digits[0] = n;
         f->length = 1;
-        free(x);
-        free(z);
         return f;
     }
     else {
+        z = fib(0);
+        x = fib(1);
         f = hugeAdd(x, z);
     }
 }
