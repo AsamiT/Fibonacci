@@ -20,8 +20,8 @@
 #include "Fibonacci.h"
 
 /** This function, intpow, will return an integer version of the pow() standard function in C. **/
-int intpow(int base, int power) {
-    int result = 1;
+unsigned long long int intpow(unsigned long long int base, int power) {
+    unsigned long long int result = 1;
     for(int count = 0; count < power; count++) result *= base;
     return result;
 }
@@ -100,8 +100,7 @@ HugeInteger *parseInt(unsigned int n) {;
 }
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
-    int *array;
-    array = malloc(sizeof(int)+1);
+    struct HugeInteger *array = malloc(sizeof(struct HugeInteger));
     unsigned long long int a_add = 0;
     unsigned long long int b_add = 0;
     unsigned long long int int_res = 0;
@@ -112,15 +111,17 @@ HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
         b_add += (q->digits[z] * intpow(10,z));
     }
     int_res = a_add + b_add;
-    int temp_int = int_res;
+    unsigned long long int temp_int = int_res;
     int count = 0;
     while (temp_int != 0) {
         temp_int /=10;
         count++;
     }
-    while (int_res != 0) {
-        count--;
-        array[count] = int_res % 10;
+    array->length = count;
+    array->digits= malloc(sizeof(int) * array->length+1); //dynamically create our digits array
+    for (int i = 0; i < array->length; i++) {
+        temp_int = int_res % 10;
+        array->digits[i] = temp_int;
         int_res /= 10;
     }
     return array;

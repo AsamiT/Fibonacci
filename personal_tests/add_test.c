@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -25,8 +26,8 @@ int main(void)
 	HugeInteger *p, *q, *r;
 
 	// calculate INT_MAX + 1
-	p = parseInt(1);
-	q = parseInt(999);
+	p = parseInt(UINT_MAX);
+    q = parseInt(1);
 	r = hugeAdd(p, q);
 
 	// print result of INT_MAX + 1 with HugeIntegers
