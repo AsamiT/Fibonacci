@@ -100,10 +100,16 @@ HugeInteger *parseInt(unsigned int n) {;
 
 HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
     /** This function creates a new array based off of HugeInteger,
-     along with some variables to do number management. After creating unsigned
-     long long integers with the number stored in each array (p and q), it creates
-     a sum number (int_res), which is then pushed to the new array. **/
+        along with some variables to do number management. After creating unsigned
+        long long integers with the number stored in each array (p and q), it creates
+        a sum number (int_res), which is then pushed to the new array. **/
     struct HugeInteger *array = malloc(sizeof(struct HugeInteger));
+    for (int a=0; a<p->length; p++) {
+        a++;
+        if (a > 20) {
+            printf("well would you look at that?");
+        }
+    }
     unsigned long long int a_add = 0;
     unsigned long long int b_add = 0;
     unsigned long long int int_res = 0;
@@ -128,7 +134,6 @@ HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
         int_res /= 10;
     }
     return array; //give the array back, i don't want it
-    /** This function does not work with variables which exceed 64-bits. Sorry. **/
 }
 
 
@@ -155,17 +160,12 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
 
 
 HugeInteger *fib(int n) {
-    struct HugeInteger *f = malloc(sizeof(struct HugeInteger));
-    f->digits = malloc(sizeof(int));
-    if (n < 2) {
-        f->digits[0] = n;
-        f->length = 1;
-    }
-    else {
-        // >:(
-    }
+    struct HugeInteger *c = malloc(sizeof(int));
+    c->digits[0] = 0;
+    c->digits[1] = 1;
+    c->digits = malloc(sizeof(int));
     
-    return f;
+    return c;
 }
 
 
