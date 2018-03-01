@@ -114,11 +114,14 @@ HugeInteger *hugeAdd(HugeInteger *p, HugeInteger *q) {
     int_res = a_add + b_add;
     int temp_int = int_res;
     int count = 0;
+    while (temp_int != 0) {
+        temp_int /=10;
+        count++;
+    }
     while (int_res != 0) {
+        count--;
         array[count] = int_res % 10;
         int_res /= 10;
-        printf("%d", array[count]);
-        count++;
     }
     return array;
 }
