@@ -12,7 +12,6 @@
  Boy you've never seen my mind." */
 
 #include <limits.h> // maximum unsigned value is 4,294,967,295 as defined by macOS 10.13
-#include <malloc.h> // used for debugging. Don't remove!
 #include <math.h>
 #include <string.h>
 #include <stdio.h>

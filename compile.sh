@@ -10,7 +10,6 @@ fi
 for VAL in "$@"
 do
     echo "Compiling testcase $VAL..."
-    echo "Compile time: $DATE" >> logfile
     gcc -o "$FILE" "$FILE".c testcase0"$VAL".c
 done
 
