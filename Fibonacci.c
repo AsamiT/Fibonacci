@@ -162,7 +162,7 @@ HugeInteger *fib(int n) {
         f->length = 1;
     }
     else {
-        // >:(
+        //i'm going to slit my own wrists now
     }
     
     return f;
