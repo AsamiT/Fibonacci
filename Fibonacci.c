@@ -147,24 +147,32 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
     }
 }
 
-
-
 HugeInteger *fib(int n) {
     struct HugeInteger *f = malloc(sizeof(struct HugeInteger));
-    struct HugeInteger *x = malloc(sizeof(struct HugeInteger));
     struct HugeInteger *z = malloc(sizeof(struct HugeInteger));
-    f->digits = malloc(sizeof(int));
+    struct HugeInteger *x = malloc(sizeof(struct HugeInteger));
     x->digits = malloc(sizeof(int));
     z->digits = malloc(sizeof(int));
-    if (n <= 1) {
-        f->digits[0] = n;
+    f->digits = malloc(sizeof(int));
+    if (n == 0) {
+        f->digits[0] = 0;
         f->length = 1;
+        z->digits[0] = 0;
+        z->length = 1;
+        return f;
+    }
+    if (n == 1) {
+        f->digits[0] = 1;
+        f->length = 1;
+        x->digits[0] = 0;
+        x->length = 1;
         return f;
     }
     else {
         z = fib(n-2);
         x = fib(n-1);
-        f = hugeAdd(x, z);
+        f = hugeAdd(x,z);
+        return f;
     }
 }
 
