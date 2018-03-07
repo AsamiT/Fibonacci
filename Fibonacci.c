@@ -110,19 +110,26 @@ HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
         int nextA = (i < a->length)? a->digits[i] : 0;
         int nextB = (i < b->length)? b->digits[i] : 0;
         result->digits[i] = nextA+ nextB + carry; // carry on my wayward one
+        carry = 0;
         if(result->digits[i]>9) {
             result->digits[i] = (nextA+nextB) % 10;
             carry = (nextA + nextB) - result->digits[i];
             if(carry < 0) carry = 0;
+            if(carry == 10) carry = 1;
         }
     }
-    for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
-        if(result->digits[i] != 0) {
-            result->length = i+1;
-            break;
-        }
-    }
+    correctHugeIntegerLength(result);
     return result; //take the array back I don't want it
+}
+
+void correctHugeIntegerLength(HugeInteger *huge) {
+        for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
+        if(huge->digits[i] != 0) {
+            //printf("DEBUG: digit @ %i = %i\n", i+1, huge->digits[i]);
+            huge->length = i+1;
+            return;
+        }
+    }
 }
 
 
@@ -151,21 +158,17 @@ HugeInteger *fib(int n) {
     struct HugeInteger *f = malloc(sizeof(struct HugeInteger));
     struct HugeInteger *z = malloc(sizeof(struct HugeInteger));
     struct HugeInteger *x = malloc(sizeof(struct HugeInteger));
-    x->digits = malloc(sizeof(int));
-    z->digits = malloc(sizeof(int));
-    f->digits = malloc(sizeof(int));
+    x->digits = malloc(sizeof(int) * MAX_Huge_INTEGER);
+    z->digits = malloc(sizeof(int) * MAX_Huge_INTEGER);
+    f->digits = malloc(sizeof(int) * MAX_Huge_INTEGER);
     if (n == 0) {
-        f->digits[0] = 0;
-        f->length = 1;
-        z->digits[0] = 0;
-        z->length = 1;
+        f = parseInt(0);
+        z = parseInt(0);
         return f;
     }
     if (n == 1) {
-        f->digits[0] = 1;
-        f->length = 1;
-        x->digits[0] = 0;
-        x->length = 1;
+        f = parseInt(1);
+        x = parseInt(1);
         return f;
     }
     else {
