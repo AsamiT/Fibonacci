@@ -100,6 +100,16 @@ HugeInteger *parseInt(unsigned int n) {;
     return a;
 }
 
+void correctHugeIntegerLength(HugeInteger *huge) {
+    for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
+        if(huge->digits[i] != 0) {
+            //printf("DEBUG: digit @ %i = %i\n", i+1, huge->digits[i]);
+            huge->length = i+1;
+            return;
+        }
+    }
+}
+
 HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
     /** I'd rather be locked in a closet with a Commodore 64
         and have to program in 6502 Assembler for eight hours than do this. **/
@@ -120,16 +130,6 @@ HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
     }
     correctHugeIntegerLength(result);
     return result; //take the array back I don't want it
-}
-
-void correctHugeIntegerLength(HugeInteger *huge) {
-        for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
-        if(huge->digits[i] != 0) {
-            //printf("DEBUG: digit @ %i = %i\n", i+1, huge->digits[i]);
-            huge->length = i+1;
-            return;
-        }
-    }
 }
 
 
