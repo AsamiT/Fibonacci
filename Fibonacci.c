@@ -11,7 +11,7 @@
  I say 'Maybe, if you want to go blind', but my eyes are getting too dark now,
  Boy you've never seen my mind." */
 
-#define MAX_Huge_INTEGER 200
+#define MAX_Huge_INTEGER 300
 
 #include <limits.h> // maximum unsigned value is 4,294,967,295 as defined by macOS 10.13
 #include <math.h>
@@ -158,9 +158,9 @@ HugeInteger *fib(int n) {
     struct HugeInteger *f = malloc(sizeof(struct HugeInteger));
     struct HugeInteger *z = malloc(sizeof(struct HugeInteger));
     struct HugeInteger *x = malloc(sizeof(struct HugeInteger));
-    x->digits = malloc(sizeof(int) * MAX_Huge_INTEGER);
-    z->digits = malloc(sizeof(int) * MAX_Huge_INTEGER);
-    f->digits = malloc(sizeof(int) * MAX_Huge_INTEGER);
+    x->digits = malloc(sizeof(int));
+    z->digits = malloc(sizeof(int));
+    f->digits = malloc(sizeof(int));
     if (n == 0) {
         f = parseInt(0);
         z = parseInt(0);

@@ -24,7 +24,7 @@ int main(void)
 	int i;
 	HugeInteger *p;
 
-	for (i = 0; i <= 30; i++)
+	for (i = 0; i <= 1000; i++)
 	{
 		printf("F(%d) = ", i);
 		hugePrint(p = fib(i));
