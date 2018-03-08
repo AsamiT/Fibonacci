@@ -99,6 +99,17 @@ HugeInteger *parseInt(unsigned int n) {;
         }
     }
     return a;
+
+}
+
+void correctHugeIntegerLength(HugeInteger *huge) {
+        for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
+        if(huge->digits[i] != 0) {
+            //printf("DEBUG: digit @ %i = %i\n", i+1, huge->digits[i]);
+            huge->length = i + 1;
+            return;
+        }
+    }
 }
 
 HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
@@ -124,16 +135,6 @@ HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
     return result; //take the array back I don't want it
 }
 
-void correctHugeIntegerLength(HugeInteger *huge) {
-        for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
-        if(huge->digits[i] != 0) {
-            //printf("DEBUG: digit @ %i = %i\n", i+1, huge->digits[i]);
-            huge->length = i + 1;
-            return;
-        }
-    }
-}
-
 unsigned int *toUnsignedInt(HugeInteger *p) {
     unsigned int *x;
     x = malloc(sizeof(unsigned int));
@@ -141,7 +142,7 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
 
     if (p == NULL || //if p is a null pointer, then don't do anything
         *p->digits> 4294967295 - 1 ) {
-        return 01;
+        return NULL;
     } //if p->length exceeds length of UINT_MAX, then don't do it.
 
     for(int i = (p->length-1); i >= 0; i--) {
@@ -153,23 +154,18 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
 }
 
 HugeInteger *fib(int n) {
-    struct HugeInteger *f = malloc(sizeof(struct HugeInteger));
-    struct HugeInteger *z = malloc(sizeof(struct HugeInteger));
-    struct HugeInteger *x = malloc(sizeof(struct HugeInteger));
-    x->digits = malloc(sizeof(int));
-    z->digits = malloc(sizeof(int));
-    f->digits = malloc(sizeof(int));
+    HugeInteger *z;
+    HugeInteger *x;
     switch(n) {
-    case 0:
-        return parseInt(n);
-    case 1:
-        return parseInt(n);
+        case 1: case 0:
+            return parseInt(n);
+        default:
+            if(n>1) {
+                z=fib(n-2);
+                x=fib(n-1);
+            }
+            return hugeAdd(z,x);
     }
-    if (n > 1) {
-        z = fib(n-2);
-        x = fib(n-1);
-    }
-    return hugeAdd(z,x);
 }
 
 void testPrint(const char *prefix, HugeInteger *p) {
