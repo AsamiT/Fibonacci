@@ -159,22 +159,17 @@ HugeInteger *fib(int n) {
     x->digits = malloc(sizeof(int));
     z->digits = malloc(sizeof(int));
     f->digits = malloc(sizeof(int));
-    if (n == 0) {
-        f = parseInt(0);
-        z = parseInt(0);
-    }
-    if (n == 1) {
-        f = parseInt(1);
-        x = parseInt(0);
+    switch(n) {
+    case 0:
+        return parseInt(n);
+    case 1:
+        return parseInt(n);
     }
     if (n > 1) {
         z = fib(n-2);
         x = fib(n-1);
-        f = hugeAdd(x,z);
     }
-    z = hugeDestroyer(z);
-    x = hugeDestroyer(x);
-    return f;
+    return hugeAdd(z,x);
 }
 
 void testPrint(const char *prefix, HugeInteger *p) {
