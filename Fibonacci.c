@@ -11,7 +11,7 @@
  I say 'Maybe, if you want to go blind', but my eyes are getting too dark now,
  Boy you've never seen my mind." */
 
-#define MAX_Huge_INTEGER 300
+#define MAX_Huge_INTEGER 200
 
 #include <limits.h> // maximum unsigned value is 4,294,967,295 as defined by macOS 10.13
 #include <math.h>
@@ -35,7 +35,7 @@ HugeInteger *parseString(char *str) {
     if (str[0] == '\0') {
         str = "0";
     }
-    a->length=strlen(str);
+    a->length = strlen(str);
     a->digits = malloc(sizeof(int) * a->length);
     /* create a new item from structure HugeInteger,
     assign to a->length the string length of str + /0,
@@ -54,6 +54,7 @@ HugeInteger *hugeDestroyer(HugeInteger *p) {
     /*  as far as I'm aware, this is literally all that is necessary to free memory.
         Implementation of a debug function which calls _msize(p) shows that the memory
         allocation for this goes from 8 to -1, thus becoming a null value. */
+    free(p->digits);
     free(p);
     return NULL;
 }
@@ -64,19 +65,19 @@ int chkint(unsigned int n) {
         return n; //if n is zero, then we're okay.
     }
 
-    else { //otherwise, forget it and kick null back to the main.
-        return NULL;
-    }
-
+    //otherwise, forget it and kick null back to the main.
+    return -1;
 }
 
 HugeInteger *parseInt(unsigned int n) {;
     struct HugeInteger *a = malloc(sizeof(struct HugeInteger)); //create new structure
     unsigned long int tempint = n; //assign the value of n to a temporary long int
     unsigned long int int_len = 0; //create new marker for our length
+
     if (!n) {
         chkint(n); //check n if the compiler thinks it's a null value.
     }
+
     if (n == 0) { //if n = 0
         a->length=1;
         a->digits=malloc((sizeof(int) * a->length+1));
@@ -100,22 +101,13 @@ HugeInteger *parseInt(unsigned int n) {;
     return a;
 }
 
-void correctHugeIntegerLength(HugeInteger *huge) {
-    for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
-        if(huge->digits[i] != 0) {
-            //printf("DEBUG: digit @ %i = %i\n", i+1, huge->digits[i]);
-            huge->length = i+1;
-            return;
-        }
-    }
-}
-
 HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
     /** I'd rather be locked in a closet with a Commodore 64
         and have to program in 6502 Assembler for eight hours than do this. **/
     HugeInteger *result = (HugeInteger *) malloc(sizeof(HugeInteger));
     result->digits = (int *) malloc(sizeof(int) * MAX_Huge_INTEGER); //warn: magic number -- check the preprocessor definitions!
     for(int i = 0; i < MAX_Huge_INTEGER; i++) result->digits[i] = 0; //initialize
+
     for(int i = 0, carry = 0; i < MAX_Huge_INTEGER; i++) {
         int nextA = (i < a->length)? a->digits[i] : 0;
         int nextB = (i < b->length)? b->digits[i] : 0;
@@ -132,26 +124,32 @@ HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
     return result; //take the array back I don't want it
 }
 
+void correctHugeIntegerLength(HugeInteger *huge) {
+        for(int i = MAX_Huge_INTEGER-1; i > -1; i--) { // determine proper length;
+        if(huge->digits[i] != 0) {
+            //printf("DEBUG: digit @ %i = %i\n", i+1, huge->digits[i]);
+            huge->length = i + 1;
+            return;
+        }
+    }
+}
 
 unsigned int *toUnsignedInt(HugeInteger *p) {
     unsigned int *x;
     x = malloc(sizeof(unsigned int));
     unsigned int hold = 0;
 
-    if (p == NULL) { //if p is a null pointer, then don't do anything
-        return NULL;
-    }
-    if (p->length > 10) {
-        return NULL;
+    if (p == NULL || //if p is a null pointer, then don't do anything
+        *p->digits> 4294967295 - 1 ) {
+        return 01;
     } //if p->length exceeds length of UINT_MAX, then don't do it.
 
-    else {
-        for(int i = (p->length-1); i >= 0; i--) {
-         hold += p->digits[i] * intpow(10, i);
-        }
-        *x=hold;
-        return x;
+    for(int i = (p->length-1); i >= 0; i--) {
+        hold += p->digits[i] * intpow(10, i);
     }
+
+    *x=hold;
+    return x;
 }
 
 HugeInteger *fib(int n) {
@@ -164,21 +162,31 @@ HugeInteger *fib(int n) {
     if (n == 0) {
         f = parseInt(0);
         z = parseInt(0);
-        return f;
     }
     if (n == 1) {
         f = parseInt(1);
-        x = parseInt(1);
-        return f;
+        x = parseInt(0);
     }
-    else {
+    if (n > 1) {
         z = fib(n-2);
         x = fib(n-1);
         f = hugeAdd(x,z);
-        return f;
     }
+    z = hugeDestroyer(z);
+    x = hugeDestroyer(x);
+    return f;
 }
 
+void testPrint(const char *prefix, HugeInteger *p) {
+	int i;
+	if (p == NULL || p->digits == NULL) {
+		printf("(null pointer)\n");
+		return;
+	}
+	printf(prefix);
+	for (i = p->length - 1; i >= 0; i--) printf("%d", p->digits[i]);
+	printf("\n");
+}
 
 double difficultyRating(void) {
     double diff = 5.0; //extremely difficult, to the point of medically inducing panic and anxiety attacks.
@@ -191,6 +199,3 @@ double hoursSpent(void) {
     return hrs;
 
 }
-
-
-
