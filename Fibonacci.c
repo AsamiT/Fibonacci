@@ -54,7 +54,6 @@ HugeInteger *hugeDestroyer(HugeInteger *p) {
     /*  as far as I'm aware, this is literally all that is necessary to free memory.
         Implementation of a debug function which calls _msize(p) shows that the memory
         allocation for this goes from 8 to -1, thus becoming a null value. */
-    free(p->digits);
     free(p);
     return NULL;
 }
@@ -136,47 +135,34 @@ HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
 }
 
 unsigned int *toUnsignedInt(HugeInteger *p) {
-    unsigned int *x;
-    x = malloc(sizeof(unsigned int));
+    unsigned int *x = malloc(sizeof(unsigned int));
     unsigned int hold = 0;
-
-    if (p == NULL || //if p is a null pointer, then don't do anything
-        *p->digits> 4294967295 - 1 ) {
-        return NULL;
-    } //if p->length exceeds length of UINT_MAX, then don't do it.
-
-    for(int i = (p->length-1); i >= 0; i--) {
-        hold += p->digits[i] * intpow(10, i);
+    if (p == NULL) return NULL; //if p is a null pointer, then don't do anything
+    if (p->length > 10) return NULL; //if p->length exceeds length of UINT_MAX, then don't do it.
+    else {
+        for(int i = (p->length-1); i >= 0; i--) {
+            hold += p->digits[i] * intpow(10, i);
+        }
+        *x=hold;
+        return x;
     }
-
-    *x=hold;
-    return x;
 }
 
 HugeInteger *fib(int n) {
     HugeInteger *z;
     HugeInteger *x;
+    HugeInteger *result;
     switch(n) {
         case 1: case 0:
             return parseInt(n);
         default:
-            if(n>1) {
-                z=fib(n-2);
-                x=fib(n-1);
-            }
-            return hugeAdd(z,x);
+            z=fib(n-2);
+            x=fib(n-1);
+            result = hugeAdd(z,x);
+            hugeDestroyer(z);
+            hugeDestroyer(x);
+            return result;
     }
-}
-
-void testPrint(const char *prefix, HugeInteger *p) {
-	int i;
-	if (p == NULL || p->digits == NULL) {
-		printf("(null pointer)\n");
-		return;
-	}
-	printf(prefix);
-	for (i = p->length - 1; i >= 0; i--) printf("%d", p->digits[i]);
-	printf("\n");
 }
 
 double difficultyRating(void) {
