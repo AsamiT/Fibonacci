@@ -126,8 +126,9 @@ HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
         }
     }
     correctHugeIntegerLength(result);
+    result->digits = realloc(result->digits, sizeof(int) * result->length);
     return result; //take the array back I don't want it
-}f
+}
 
 unsigned int *toUnsignedInt(HugeInteger *p) {
     unsigned int *x = malloc(sizeof(unsigned int));
