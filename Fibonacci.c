@@ -115,19 +115,14 @@ HugeInteger *hugeAdd(HugeInteger *a, HugeInteger *b) {
     /** I'd rather be locked in a closet with a Commodore 64
         and have to program in 6502 Assembler for eight hours than do this. **/
     HugeInteger *result = (HugeInteger *) malloc(sizeof(HugeInteger));
-    result->digits = (int *) malloc(sizeof(int) * MAX_Huge_INTEGER); //warn: magic number -- check the preprocessor definitions!
-    for(int i = 0; i < MAX_Huge_INTEGER; i++) result->digits[i] = 0; //initialize
-
-    for(int i = 0, carry = 0; i < MAX_Huge_INTEGER; i++) {
+    result->digits = (int *) calloc(sizeof(int), MAX_Huge_INTEGER); //warn: magic number -- check the preprocessor definitions!
+    for(int i = 0; i < MAX_Huge_INTEGER; i++) {
         int nextA = (i < a->length)? a->digits[i] : 0;
         int nextB = (i < b->length)? b->digits[i] : 0;
-        result->digits[i] = nextA+ nextB + carry; // carry on my wayward one
-        carry = 0;
-        if(result->digits[i]>9) {
-            result->digits[i] = (nextA+nextB) % 10;
-            carry = (nextA + nextB) - result->digits[i];
-            if(carry < 0) carry = 0;
-            if(carry == 10) carry = 1;
+        result->digits[i] += (nextA + nextB);
+        if(result->digits[i] >= 10) {
+            result->digits[i] -= 10;
+            result->digits[i+1]++;
         }
     }
     correctHugeIntegerLength(result);
