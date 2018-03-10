@@ -137,38 +137,54 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
     }
 }
 
-typedef struct {
-    int index;
-    HugeInteger *answer;
-    struct CalculatedFibonacci *next;
-} CalculatedFibonacci;
+//typedef struct {
+//    int index;
+//    HugeInteger *answer;
+//    struct CalculatedFibonacci *next;
+//} CalculatedFibonacci;
+
+//HugeInteger *fib(int n) {
+//    // static decl for linked list lookup table
+//    static CalculatedFibonacci *calcs;
+//    HugeInteger *result;
+//
+//    // first we're gonna get the maximum calculated fibonacci
+//    int maxprecalc = 0;
+//    CalculatedFibonacci *current;
+//    CalculatedFibonacci *previous;
+//    while(current != NULL) {
+//        current = current->next;
+//        maxprecalc = current->index;
+//        previous = current;
+//    }
+//
+//    if(n < 2) result = parseInt(n);
+//    else if (n >= 2) result = hugeAdd(fib(n-1), fib(n-2));
+//
+//    // after we've figured our answer out...
+//    if(n == maxprecalc+1) {
+//        previous->next = (CalculatedFibonacci *) malloc(sizeof(CalculatedFibonacci));
+//        CalculatedFibonacci *working = previous->next;
+//        working->index = n+1;
+//        working->answer = result;
+//    }
+//    return result;
+//}
 
 HugeInteger *fib(int n) {
-    // static decl for linked list lookup table
-    static CalculatedFibonacci *calcs;
+    double phi = 1.61803;
     HugeInteger *result;
-
-    // first we're gonna get the maximum calculated fibonacci
-    int maxprecalc = 0;
-    CalculatedFibonacci *current;
-    CalculatedFibonacci *previous;
-    while(current != NULL) {
-        current = current->next;
-        maxprecalc = current->index;
-        previous = current;
+    HugeInteger *test;
+    if (n <= 92) {
+        test = parseInt(floor(pow(phi, n)/sqrt(5)));
     }
-
-    if(n < 2) result = parseInt(n);
-    else if (n >= 2) result = hugeAdd(fib(n-1), fib(n-2));
-
-    // after we've figured our answer out...
-    if(n == maxprecalc+1) {
-        previous->next = (CalculatedFibonacci *) malloc(sizeof(CalculatedFibonacci));
-        CalculatedFibonacci *working = previous->next;
-        working->index = n+1;
-        working->answer = result;
+    if (n < 2) {
+        result = parseInt(n);
+        return result;
     }
-    return result;
+    else {
+        return test;
+    }
 }
 
 double difficultyRating(void) {
