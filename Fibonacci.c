@@ -70,7 +70,7 @@ int chkint(unsigned int n) {
 
 HugeInteger *parseInt(unsigned int n) {
     HugeInteger *a = (HugeInteger *) malloc(sizeof(HugeInteger)); /*create new structure*/
-    unsigned long int tempint = n,           /*assign the value of n to a temporary long int*/
+    unsigned long long int tempint = n,           /*assign the value of n to a temporary long int*/
                                 int_len = 0; /*create new marker for our length*/
     if (!n) chkint(n); /*check n if the compiler thinks it's a null value.*/
     if (n == 0) { /*if n = 0*/
@@ -84,7 +84,7 @@ HugeInteger *parseInt(unsigned int n) {
         }
         a->length=int_len; /*assign length*/
         a->digits=(int *) malloc(sizeof(int) * a->length+1); /*dynamically create our digits array*/
-        unsigned long int digit; /*declare integer*/
+        unsigned long long int digit; /*declare integer*/
         for (int i = 0; i <= a->length; i++) {
             digit = n % 10;
             a->digits[i] = digit;
@@ -143,54 +143,43 @@ typedef struct {
     struct CalculatedFibonacci *next;
 } CalculatedFibonacci;
 
-HugeInteger *fib(int n) {
-    // static decl for linked list lookup table
-    static CalculatedFibonacci *calcs;
-    HugeInteger *result;
+CalculatedFibonacci *getHighestFib(CalculatedFibonacci *base) {
+    CalculatedFibonacci *current = base;
+    for(int i = 0; i < getHighestIndex(base); i++) current = current->next;
+    return current;
+}
 
-    // first we're gonna get the maximum calculated fibonacci
-    int maxprecalc = 0;
-    CalculatedFibonacci *current;
-    CalculatedFibonacci *previous;
-    while(current != NULL) {
-        current = current->next;
-        maxprecalc = current->index;
-        previous = current;
-    }
-
-    if(n < 2) result = parseInt(n);
-    else if (n >= 2) result = hugeAdd(fib(n-1), fib(n-2));
-
-    // after we've figured our answer out...
-    if(n == maxprecalc+1) {
-        previous->next = (CalculatedFibonacci *) malloc(sizeof(CalculatedFibonacci));
-        CalculatedFibonacci *working = previous->next;
-        working->index = n+1;
-        working->answer = result;
+int getHighestIndex(CalculatedFibonacci *x) {
+    int result = 0;
+    CalculatedFibonacci *current = x;
+    while(x != NULL) {
+        result = x->index;
+        x = x->next;
     }
     return result;
 }
 
-/* HugeInteger *fib(int n) {
-    double phi = 1.61803399;
-    double square = sqrt(5);
+HugeInteger *fib(int n) {
+    float square = sqrt(5);
+    float phi = (square+1)/2.0f;
+    float neg_phi = (square-1)/2.0f;
+    HugeInteger *n2;
+    HugeInteger *n1;
     HugeInteger *result;
-    HugeInteger *test;
+    //printf("%f\n", (pow(phi,n)-pow(neg_phi,n))/square);
     if (n < 2) {
-        result = parseInt(n);
-        return result;
+        if (n == 0) {
+            result = parseInt(0);
+        }
+        else {
+            result = parseInt(1);
+        }
     }
     if (n >= 2) {
-        if (n < 92) {
-           result = parseInt(round(pow(phi, n)/square));
-            return result;
-        }
-        if (n >= 92) {
-            result = hugeAdd(fib(n-2), fib(n-1));
-            return result;
-        }
+        result = parseInt(ceil(pow(phi,n)-pow(neg_phi,n))/square);
     }
-} */
+    return result;
+}
 
 double difficultyRating(void) {
     double diff = 5.0; //extremely difficult, to the point of medically inducing panic and anxiety attacks.
