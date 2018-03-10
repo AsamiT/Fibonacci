@@ -137,21 +137,37 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
     }
 }
 
+typedef struct {
+    int index;
+    HugeInteger *answer;
+    struct CalculatedFibonacci *next;
+} CalculatedFibonacci;
+
 HugeInteger *fib(int n) {
-    HugeInteger *z;
-    HugeInteger *x;
+    // static decl for linked list lookup table
+    static CalculatedFibonacci *calcs;
     HugeInteger *result;
-    switch(n) {
-        case 1: case 0:
-            return parseInt(n);
-        default:
-            z=fib(n-2);
-            x=fib(n-1);
-            result = hugeAdd(z,x);
-            hugeDestroyer(z);
-            hugeDestroyer(x);
-            return result;
+
+    // first we're gonna get the maximum calculated fibonacci
+    int maxprecalc = 0;
+    CalculatedFibonacci *current, *previous;
+    while(current != NULL) {
+        current = current->next;
+        maxprecalc = current->index;
+        previous = current;
     }
+
+    if(n < 2) result = parseInt(n);
+    else if (n >= 2) result = hugeAdd(fib(n-1), fib(n-2));
+
+    // after we've figured our answer out...
+    if(n == maxprecalc+1) {
+        previous->next = (CalculatedFibonacci *) malloc(sizeof(CalculatedFibonacci));
+        CalculatedFibonacci *working = previous->next;
+        working->index = n+1;
+        working->answer = result;
+    }
+    return result;
 }
 
 double difficultyRating(void) {
