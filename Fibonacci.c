@@ -68,29 +68,23 @@ int chkint(unsigned int n) {
     return -1;
 }
 
-HugeInteger *parseInt(unsigned int n) {;
-    struct HugeInteger *a = malloc(sizeof(struct HugeInteger)); //create new structure
-    unsigned long int tempint = n; //assign the value of n to a temporary long int
-    unsigned long int int_len = 0; //create new marker for our length
-
-    if (!n) {
-        chkint(n); //check n if the compiler thinks it's a null value.
-    }
-
-    if (n == 0) { //if n = 0
+HugeInteger *parseInt(unsigned int n) {
+    HugeInteger *a = (HugeInteger *) malloc(sizeof(HugeInteger)); /*create new structure*/
+    unsigned long int tempint = n,           /*assign the value of n to a temporary long int*/
+                                int_len = 0; /*create new marker for our length*/
+    if (!n) chkint(n); /*check n if the compiler thinks it's a null value.*/
+    if (n == 0) { /*if n = 0*/
         a->length=1;
-        a->digits=malloc((sizeof(int) * a->length+1));
+        a->digits=malloc((sizeof(int)));
         a->digits[0] = n;
-    }
-    else { //if n > 0
-        while (tempint > 0) { //execute a while loop that counts up the length of our integer number
+    } else { /*if n > 0*/
+        while (tempint > 0) { /*execute a while loop that counts up the length of our integer number*/
             tempint /= 10;
             int_len++;
         }
-        a->length=int_len; //assign length
-        a->digits= malloc(sizeof(int) * a->length+1); //dynamically create our digits array
-        unsigned long int digit; //declare integer
-
+        a->length=int_len; /*assign length*/
+        a->digits=(int *) malloc(sizeof(int) * a->length+1); /*dynamically create our digits array*/
+        unsigned long int digit; /*declare integer*/
         for (int i = 0; i <= a->length; i++) {
             digit = n % 10;
             a->digits[i] = digit;
@@ -98,7 +92,6 @@ HugeInteger *parseInt(unsigned int n) {;
         }
     }
     return a;
-
 }
 
 void correctHugeIntegerLength(HugeInteger *huge) {
