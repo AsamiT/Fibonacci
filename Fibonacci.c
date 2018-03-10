@@ -137,34 +137,11 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
     }
 }
 
-typedef struct {
-    int index;
-    HugeInteger *answer;
-    struct CalculatedFibonacci *next;
-} CalculatedFibonacci;
-
-CalculatedFibonacci *getHighestFib(CalculatedFibonacci *base) {
-    CalculatedFibonacci *current = base;
-    for(int i = 0; i < getHighestIndex(base); i++) current = current->next;
-    return current;
-}
-
-int getHighestIndex(CalculatedFibonacci *x) {
-    int result = 0;
-    CalculatedFibonacci *current = x;
-    while(x != NULL) {
-        result = x->index;
-        x = x->next;
-    }
-    return result;
-}
-
 HugeInteger *fib(int n) {
     float square = sqrt(5);
     float phi = (square+1)/2.0f;
     float neg_phi = (square-1)/2.0f;
-    HugeInteger *n2;
-    HugeInteger *n1;
+    HugeInteger *temp;
     HugeInteger *result;
     //printf("%f\n", (pow(phi,n)-pow(neg_phi,n))/square);
     if (n < 2) {
