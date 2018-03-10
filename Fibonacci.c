@@ -150,7 +150,8 @@ HugeInteger *fib(int n) {
 
     // first we're gonna get the maximum calculated fibonacci
     int maxprecalc = 0;
-    CalculatedFibonacci *current, *previous;
+    CalculatedFibonacci *current;
+    CalculatedFibonacci *previous;
     while(current != NULL) {
         current = current->next;
         maxprecalc = current->index;
