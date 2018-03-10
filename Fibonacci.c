@@ -141,9 +141,7 @@ HugeInteger *fib(int n) {
     float square = sqrt(5);
     float phi = (square+1)/2.0f;
     float neg_phi = (square-1)/2.0f;
-    HugeInteger *temp;
     HugeInteger *result;
-    //printf("%f\n", (pow(phi,n)-pow(neg_phi,n))/square);
     if (n < 2) {
         if (n == 0) {
             result = parseInt(0);
@@ -153,19 +151,24 @@ HugeInteger *fib(int n) {
         }
     }
     if (n >= 2) {
-        result = parseInt(ceil(pow(phi,n)-pow(neg_phi,n))/square);
+        result = parseInt(ceil(pow(phi,n)-pow(neg_phi,n))/square); //something something golden ratio i'm not explaining it
     }
     return result;
 }
 
 double difficultyRating(void) {
-    double diff = 5.0; //extremely difficult, to the point of medically inducing panic and anxiety attacks.
+    double diff = 5.0;
+    /* this assignment is patently criminal. fibonacci sequences are some of the worst
+       calculations one can perform on a personal computer. Requiring people whose largest
+       exposure to C is a dinky "red light-green light" program and expecting them to do
+       what tech gurus can't is abysmal. */
     return diff;
 }
 
 
 double hoursSpent(void) {
-    int hrs = 120; //way too many hours dude, i have other things to do than this
+    int hrs = 280;
+    /* hope you're not expecting me to pass my midterm because i've been doing this for the last five weeks. */
     return hrs;
 
 }
