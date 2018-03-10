@@ -137,55 +137,60 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
     }
 }
 
-//typedef struct {
-//    int index;
-//    HugeInteger *answer;
-//    struct CalculatedFibonacci *next;
-//} CalculatedFibonacci;
-
-//HugeInteger *fib(int n) {
-//    // static decl for linked list lookup table
-//    static CalculatedFibonacci *calcs;
-//    HugeInteger *result;
-//
-//    // first we're gonna get the maximum calculated fibonacci
-//    int maxprecalc = 0;
-//    CalculatedFibonacci *current;
-//    CalculatedFibonacci *previous;
-//    while(current != NULL) {
-//        current = current->next;
-//        maxprecalc = current->index;
-//        previous = current;
-//    }
-//
-//    if(n < 2) result = parseInt(n);
-//    else if (n >= 2) result = hugeAdd(fib(n-1), fib(n-2));
-//
-//    // after we've figured our answer out...
-//    if(n == maxprecalc+1) {
-//        previous->next = (CalculatedFibonacci *) malloc(sizeof(CalculatedFibonacci));
-//        CalculatedFibonacci *working = previous->next;
-//        working->index = n+1;
-//        working->answer = result;
-//    }
-//    return result;
-//}
+typedef struct {
+    int index;
+    HugeInteger *answer;
+    struct CalculatedFibonacci *next;
+} CalculatedFibonacci;
 
 HugeInteger *fib(int n) {
-    double phi = 1.61803;
+    // static decl for linked list lookup table
+    static CalculatedFibonacci *calcs;
+    HugeInteger *result;
+
+    // first we're gonna get the maximum calculated fibonacci
+    int maxprecalc = 0;
+    CalculatedFibonacci *current;
+    CalculatedFibonacci *previous;
+    while(current != NULL) {
+        current = current->next;
+        maxprecalc = current->index;
+        previous = current;
+    }
+
+    if(n < 2) result = parseInt(n);
+    else if (n >= 2) result = hugeAdd(fib(n-1), fib(n-2));
+
+    // after we've figured our answer out...
+    if(n == maxprecalc+1) {
+        previous->next = (CalculatedFibonacci *) malloc(sizeof(CalculatedFibonacci));
+        CalculatedFibonacci *working = previous->next;
+        working->index = n+1;
+        working->answer = result;
+    }
+    return result;
+}
+
+/* HugeInteger *fib(int n) {
+    double phi = 1.61803399;
+    double square = sqrt(5);
     HugeInteger *result;
     HugeInteger *test;
-    if (n <= 92) {
-        test = parseInt(floor(pow(phi, n)/sqrt(5)));
-    }
     if (n < 2) {
         result = parseInt(n);
         return result;
     }
-    else {
-        return test;
+    if (n >= 2) {
+        if (n < 92) {
+           result = parseInt(round(pow(phi, n)/square));
+            return result;
+        }
+        if (n >= 92) {
+            result = hugeAdd(fib(n-2), fib(n-1));
+            return result;
+        }
     }
-}
+} */
 
 double difficultyRating(void) {
     double diff = 5.0; //extremely difficult, to the point of medically inducing panic and anxiety attacks.
