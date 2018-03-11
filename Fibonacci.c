@@ -7,9 +7,11 @@
  *
  */
 
-/* "You say we've gotta look at the bright side,
- I say 'Maybe, if you want to go blind', but my eyes are getting too dark now,
- Boy you've never seen my mind." */
+/* FPU Administration: "We should teach kids C++!"
+- one year later -
+"Oh, nevermind. Let's teach them C and expect them to remember that when they go into advanced topics.
+"But what about the kids who learned C++?"
+"Ah, they'll manage." */
 
 #define MAX_Huge_INTEGER 200
 
@@ -137,21 +139,53 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
     }
 }
 
+//HugeInteger *fib(int n) {
+//    float square = sqrt(5);
+//    float phi = (square+1)/2.0f;
+//    float neg_phi = (square-1)/2.0f;
+//    /* calculating the golden ratio because trying to do this with arrays was a mess of 32-bit and 64-bit memory failure */
+//    HugeInteger *result;
+//    HugeInteger *n1;
+//    HugeInteger *n2;
+//    if (n < 2) {
+//        if (n == 0) {
+//            result = parseInt(0);
+//        }
+//        else {
+//            result = parseInt(1);
+//        }
+//    }
+//    if (n >= 2) {
+//        if (n <= 32) {
+//            result = parseInt(ceil(pow(phi,n)-pow(neg_phi,n))/square); //something something golden ratio i'm not explaining it
+//        }
+//        else {
+//            n1 = fib(n-1);
+//            n2 = fib(n-2);
+//            result = hugeAdd(n1, n2);
+//        }
+//    }
+//    return result;
+//}
+
+HugeInteger *n1;
+HugeInteger *n2;
+
 HugeInteger *fib(int n) {
-    float square = sqrt(5);
-    float phi = (square+1)/2.0f;
-    float neg_phi = (square-1)/2.0f;
     HugeInteger *result;
-    if (n < 2) {
-        if (n == 0) {
-            result = parseInt(0);
-        }
-        else {
-            result = parseInt(1);
-        }
+    if (n == 0) {
+        result = parseInt(0);
+        n2 = result;
+        printf("ptr: %p\n", &(*result));
+    }
+    if (n == 1) {
+        n1 = result;
+        result = parseInt(1);
     }
     if (n >= 2) {
-        result = parseInt(ceil(pow(phi,n)-pow(neg_phi,n))/square); //something something golden ratio i'm not explaining it
+        result = hugeAdd(n1,n2);
+        n2 = n1;
+        n1 = result;
     }
     return result;
 }
