@@ -13,7 +13,7 @@
 "But what about the kids who learned C++?"
 "Ah, they'll manage." */
 
-#define MAX_Huge_INTEGER 200
+#define MAX_Huge_INTEGER 250
 
 #include <limits.h> // maximum unsigned value is 4,294,967,295 as defined by macOS 10.13
 #include <math.h>
@@ -21,6 +21,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Fibonacci.h"
+
+HugeInteger *n1;
+HugeInteger *n2;
 
 /** This function, intpow, will return an integer version of the pow() standard function in C. **/
 unsigned long long int intpow(unsigned long long int base, int power) {
@@ -56,7 +59,7 @@ HugeInteger *hugeDestroyer(HugeInteger *p) {
     /*  as far as I'm aware, this is literally all that is necessary to free memory.
         Implementation of a debug function which calls _msize(p) shows that the memory
         allocation for this goes from 8 to -1, thus becoming a null value. */
-    free(p);
+    //free(p);
     return NULL;
 }
 
@@ -139,48 +142,17 @@ unsigned int *toUnsignedInt(HugeInteger *p) {
     }
 }
 
-//HugeInteger *fib(int n) {
-//    float square = sqrt(5);
-//    float phi = (square+1)/2.0f;
-//    float neg_phi = (square-1)/2.0f;
-//    /* calculating the golden ratio because trying to do this with arrays was a mess of 32-bit and 64-bit memory failure */
-//    HugeInteger *result;
-//    HugeInteger *n1;
-//    HugeInteger *n2;
-//    if (n < 2) {
-//        if (n == 0) {
-//            result = parseInt(0);
-//        }
-//        else {
-//            result = parseInt(1);
-//        }
-//    }
-//    if (n >= 2) {
-//        if (n <= 32) {
-//            result = parseInt(ceil(pow(phi,n)-pow(neg_phi,n))/square); //something something golden ratio i'm not explaining it
-//        }
-//        else {
-//            n1 = fib(n-1);
-//            n2 = fib(n-2);
-//            result = hugeAdd(n1, n2);
-//        }
-//    }
-//    return result;
-//}
 
-HugeInteger *n1;
-HugeInteger *n2;
-
+/** after weeks of laboring, this finally works. **/
 HugeInteger *fib(int n) {
     HugeInteger *result;
     if (n == 0) {
         result = parseInt(0);
         n2 = result;
-        printf("ptr: %p\n", &(*result));
     }
     if (n == 1) {
-        n1 = result;
         result = parseInt(1);
+        n1 = result;
     }
     if (n >= 2) {
         result = hugeAdd(n1,n2);
@@ -192,10 +164,7 @@ HugeInteger *fib(int n) {
 
 double difficultyRating(void) {
     double diff = 5.0;
-    /* this assignment is patently criminal. fibonacci sequences are some of the worst
-       calculations one can perform on a personal computer. Requiring people whose largest
-       exposure to C is a dinky "red light-green light" program and expecting them to do
-       what tech gurus can't is abysmal. */
+    /* this assignment was ridiculously hard, with perfectionism stamped on every facet of our lives. */
     return diff;
 }
 
