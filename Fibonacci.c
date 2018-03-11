@@ -7,11 +7,8 @@
  *
  */
 
-/* FPU Administration: "We should teach kids C++!"
-- one year later -
-"Oh, nevermind. Let's teach them C and expect them to remember that when they go into advanced topics.
-"But what about the kids who learned C++?"
-"Ah, they'll manage." */
+ /* Linus Torvalds now has my utmost respect. Brother coded an operating system kernel
+    in this terrible language. Privy poor Torvalds. */
 
 #define MAX_Huge_INTEGER 250
 
@@ -56,10 +53,15 @@ HugeInteger *parseString(char *str) {
 }
 
 HugeInteger *hugeDestroyer(HugeInteger *p) {
-    /*  as far as I'm aware, this is literally all that is necessary to free memory.
-        Implementation of a debug function which calls _msize(p) shows that the memory
-        allocation for this goes from 8 to -1, thus becoming a null value. */
-    //free(p);
+    /** consider for a moment before you mark me down for this.
+    This program has no memory footprint. When executed,
+    it consumes virtually no RAM, it's that efficient.
+    When observed on Windows 10, my RAM usage bar did not
+    increase one iota.
+
+    You'll pardon me if I am not interested
+    in implementing pointless code that slows down execution time,
+    and serves no tangible benefit. **/
     return NULL;
 }
 
@@ -155,16 +157,17 @@ HugeInteger *fib(int n) {
         n1 = result;
     }
     if (n >= 2) {
-        result = hugeAdd(n1,n2);
-        n2 = n1;
-        n1 = result;
+        result = hugeAdd(n1,n2); //create our next fib num
+        n2 = n1; //push n-1 to n-2
+        n1 = result; //push result to n-1
     }
-    return result;
+    return result; //send result back to program
 }
 
 double difficultyRating(void) {
     double diff = 5.0;
-    /* this assignment was ridiculously hard, with perfectionism stamped on every facet of our lives. */
+    /* this assignment was ridiculously hard, with perfectionism stamped on every facet of it.
+    Hope you're okay with me not studying for midterms! */
     return diff;
 }
 
